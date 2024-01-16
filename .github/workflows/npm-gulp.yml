@@ -10,10 +10,6 @@ jobs:
   build:
     runs-on: ubuntu-latest
 
-    strategy:
-      matrix:
-        node-version: [14.x, 16.x, 18.x]
-
     steps:
     - uses: actions/checkout@v3
 
@@ -26,3 +22,10 @@ jobs:
       run: |
         npm install
         gulp bundle
+
+    - name: 'Upload Artifact'
+      uses: actions/upload-artifact@v2
+      with:
+        name: ui-bundle
+        path: build/ui-bundle.zip
+        token: ${{ secrets.GITHUB_TOKEN }}
